@@ -7,7 +7,7 @@ pokeApp.controller('firstcontroller', function($scope, $log, $http) {
 
     $scope.maFonction=function (x) {
         $log.warn(x.name);
-    }
+    };
     $http({
         method: 'GET',
         url: 'https://pokeapi.co/api/v2/pokemon/'
