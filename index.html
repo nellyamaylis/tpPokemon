@@ -2,58 +2,16 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title></title>
+    <title>TP POKEDEX</title>
 
     <link rel="stylesheet" href="css/bootstrap.min.css" />
 
 </head>
-<body ng-app="pokedex">
 
-	<div class="container">
-        <h1>Pokésir</h1>
-
-		<!-- Search -->
-		<div ng-controller="firstcontroller">
-            <label>Numero:
-              <input type="text" name="PokNumero"
-                   ng-model="selectedPok.id"/>
-            </label> <br/>
-            <!-- <pre>pok.id = {{pok.id}}</pre>-->
-            
-            <select label="Veuillez choisir un pokemon" name="mySelect" id="mySelect"
-                    ng-options="x.name for x in poks  |  orderBy:'name' track by x.id | filter:selectedPok"
-                    ng-model="selectedPok"></select>
-            {{selectedPok}}
-
-            <ol>
-                <li ng-repeat="element in poks | filter:selectedPok.id">{{element.name}}</li>
-            </ol>
-<button ng-click="maFonction(selectedPok)">GO !</button>
-        </div>
-
-
-		    <!-- <div ng-controller="secondcontroller">
-              <label>Attaques:
-                 {{attaques.move.name}}<br/>
-              </label>
-              <pre>ID = {{pok.id}}</pre>
-              <p ng-repeat="Liste des attaques">Attaques = </p>{{attaques.move.name}}<br/>
-            </div> -->
-
-
-
-
-         <!--<div ng-controller="secondcontroller">
-             <label>Nom:
-                 {{pokemonat.name}}<br/>
-             </label>
-             <pre>ID = {{pok.id}}</pre>
-             <p ng-repeat="Liste des attaques">Attaques = </p>{{attaques.move.name}}<br/>
-         </div>
-
-         <!-- Pokémon information -->
-
-	</div>
+<!-- Utilisation de la directive qui renvoie les informations de pokedex.html -->
+    <div ng-app="pokedex">
+        <pokedex></pokedex>
+    </div>
 
     <!-- Dependencies -->
     <script src="js/jquery.min.js"></script>
@@ -66,7 +24,4 @@
 
 
     </script>
-
-
-</body>
 </html>

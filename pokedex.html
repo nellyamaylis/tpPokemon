@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+
+</head>
+<body ng-app="pokedex">
+
+<div class="container">
+    <h1>Pokésir</h1>
+    <nav class="navbar navbar-inverse" style="background-color: #FF80AB;">
+        <div class="container">
+            <div class="navbar-header" ng-controller="firstcontroller">
+                <a class="navbar-brand" href="#" style="color: white;" ><i class=" glyphicon glyphicon-th"></i> Pokédex </a></br>
+                <!-- Search -->
+                <form class="navbar-form navbar-left" role="search">
+                    <div class="form-group">
+                        <label style="color: #2b669a; font-size: large" class="glyphicon glyphicon-barcode"> Numero:
+                            <input type="text" name="PokNumero" style="font-size: medium" placeholder="Numero du pokemon?"
+                                   ng-model="selectedPok.id"/>
+                        </label> <br/>
+                        <label style="color: #2b669a; font-size: large" class="glyphicon glyphicon-search"> Recherche:
+                            <select name="mySelect" id="mySelect"
+                                ng-options="x.name for x in poks  |  orderBy:'name' track by x.id | filter:selectedPok"
+                                ng-model="selectedPok">
+                            </select>
+                            <ol>
+                                <li ng-repeat="element in poks | filter:selectedPok.id | limitTo: 6">{{element.name}}</li>
+                            </ol>
+                        </label> <br/>
+                        <button ng-click="maFonction(selectedPok)">GO !</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+
+        <!-- Name, Description, Basic informations -->
+        <div  ng-controller="pokeChoice">
+            <div ng-if="pokemon.id != undefined" class="container">
+                <div class="row" ng-if="pokemon.id != undefined">
+                    <div class="panel panel-danger">
+                        <div class="panel-heading"><h2>{{pokemon.id}} - {{pokemon.name}}</h2></div>
+                        <div class="panel-body">
+                            <h3><i class="glyphicon glyphicon-info-sign"></i> Description</h3>
+                            <p>{{pokemon.description}}</p>
+                            <img width="150px" src="{{pokemon.sprites.front_default}}"/>
+                            <table class="table table-striped">
+                                <tr class="danger"><td>Type : </td><td><span ng-repeat="type in pokemon.types">{{type.type.name}} </span></td></tr>
+                                <tr class="info"><td>Height : </td><td>{{pokemon.height*10}} cm</td></tr>
+                                <tr class="danger"><td>Weight : </td><td>{{pokemon.weight}} kg</td></tr>
+                                <tr class="info"><td>Base experience : </td><td>{{pokemon.base_experience}}</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Bases stats -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><i class="glyphicon glyphicon-stats"></i> Base stats</div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <tr ng-repeat="stat in pokemon.stats"><td>{{stat.stat.name}}</td><td>{{stat.base_stat}}</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- Abilities -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><i class="glyphicon glyphicon-gift"></i> Abilities</div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <tr ng-repeat="ability in pokemon.abilities"><td>{{ability.ability.name}}</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                    <!--Moves -->
+                    <div class="panel panel-primary">
+                        <div class="panel-heading"><i class="glyphicon glyphicon-screenshot"></i> Moves</div>
+                        <div class="panel-body">
+                            <table class="table table-striped">
+                                <tr ng-repeat="move in pokemon.moves"><td>{{move.move.name}}</td></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Pokémon information -->
+
+</div>
+
+<!-- Dependencies -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.min.js"></script>
+
+<!-- Pokedex app -->
+<script src="js/pokedex.js">
+
+
+</script>
+
+
+</body>
+</html>

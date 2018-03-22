@@ -15,8 +15,8 @@ pokeApp.controller('firstcontroller', function($scope, $log, $http) {
        console.log(response.data);
         $scope.poks = response.data.results;
         $scope.poks.forEach(function(e){
-            e.id = e.url.replace('https://pokeapi.co/api/v2/pokemon/','').replace('/','')
-        })
+          e.id = e.url.replace('https://pokeapi.co/api/v2/pokemon/','').replace('/','')
+        });
     }, function errorCallback(response) {
         // called asynchronously if an error occurs
         // or server returns response with an error status.
@@ -35,14 +35,14 @@ pokeApp.factory('chosenPokemon', function($resource,$log,$rootScope){
     var pokemon = {};
     var description = {};
 
-    function retreive(url){
+    function retrouve(url){
        var ApiData = $resource(url);
        ApiData.get().$promise.then(function(result){
            pokemon = result;
            var ApiDescription = $resource(result.species.url);
            ApiDescription.get().$promise.then(function(result){
                var description = result.flavor_text_entries.find(function(m){
-                   return m.language.name === "en";
+                   return m.language.name === "fr";
                });
                pokemon.description = description.flavor_text;
            });
@@ -53,16 +53,16 @@ pokeApp.factory('chosenPokemon', function($resource,$log,$rootScope){
         return pokemon;
     }
 
-    return {retreive: retreive, getPokemon: getPokemon}
+    return {retrouve: retrouve, getPokemon: getPokemon}
 });
 
 pokeApp.controller('pokeList', function($scope, $resource, POKEAPI, chosenPokemon) {
-    var ApiData = $resource(POKEAPI + "pokemon/?limit=4");
+    var ApiData = $resource(POKEAPI + "pokemon/?limit=151");
     ApiData.get().$promise.then(function(results){
         $scope.pokemons = results.results;
     });
-    $scope.iChooseYou = function(choice) {
-        chosenPokemon.retreive(choice)
+    $scope.iChooseYou = function(selectedPoke) {
+        chosenPokemon.retrouve(selectedPoke)
     };
 });
 
